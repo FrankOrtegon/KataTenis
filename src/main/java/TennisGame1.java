@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Hashtable;
 
 public class TennisGame1 implements TennisGame {
@@ -43,32 +44,35 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String ventajaJugador() {
+
         String puntaje = "";
         int minusResult = puntajeJugador1 - puntajeJugador2;
-       if (minusResult==1) puntaje ="Ventaja jugador1";
-        else if (minusResult ==-1) puntaje ="Ventaja jugador2";
-        else if (minusResult>=2) puntaje = "Gana jugador1";
-        else puntaje ="Gana jugador2";
-        return puntaje;
+        Hashtable ventaja = new Hashtable();
+        ventaja.put(1,  "Ventaja jugador1");
+        ventaja.put(-1,  "Ventaja jugador2");
+        if(minusResult >= 2) {
+            minusResult = 2;
+        }
+        ventaja.put(2, "Gana jugador1");
+        if (minusResult <= -2) {
+            minusResult = -2;
+        }
+        ventaja.put(-2,  "Gana jugador2");
+
+        return ventaja.get(minusResult).toString();
     }
 
     private String getPunto(String puntaje, int tempPuntaje) {
-        switch(tempPuntaje)
-        {
-            case 0:
-                puntaje +="Amor";
-                break;
-            case 1:
-                puntaje +="Quince";
-                break;
-            case 2:
-                puntaje +="Treinta";
-                break;
-            case 3:
-                puntaje +="Cuarenta";
-                break;
-        }
-        return puntaje;
+
+       Hashtable punto = new Hashtable();
+
+       punto.put(0, "Amor");
+       punto.put(1, "Quince");
+       punto.put(2, "Treinta");
+       punto.put(3, "Cuarenta");
+
+       puntaje += punto.get(tempPuntaje).toString();
+       return puntaje;
     }
 
     private String getEmpate(int puntajeJugador1) {
@@ -82,22 +86,7 @@ public class TennisGame1 implements TennisGame {
             }
             empate.put(3, "Deuce");
 
-       /* switch (puntajeJugador1)
-        {
-            case 0:
-                    puntaje = "Amor-Todos";
-                break;
-            case 1:
-                    puntaje = "Quince-Todos";
-                break;
-            case 2:
-                    puntaje = "Treinta-Todos";
-                break;
-            default:
-                    puntaje = "Deuce";
-                break;
 
-        }*/
         return empate.get(puntajeJugador1).toString();
     }
 }
