@@ -1,36 +1,53 @@
 
 public class TennisGame3 implements TennisGame {
     
-    private int p2;
-    private int p1;
-    private String p1N;
-    private String p2N;
+    private int jugador2;
+    private int jugador1;
+    private String nombreJugado1;
+    private String nombreJugador2;
 
-    public TennisGame3(String p1N, String p2N) {
-        this.p1N = p1N;
-        this.p2N = p2N;
+    public TennisGame3(String nombreJugador1, String nombreJugador2) {
+        this.nombreJugado1 = nombreJugador1;
+        this.nombreJugador2 = nombreJugador2;
     }
 
     public String getPuntaje() {
         String s;
-        if (p1 < 4 && p2 < 4 && !(p1 + p2 == 6)) {
-            String[] p = new String[]{"Amor", "Quince", "Treinta", "Cuarenta"}; 
-            s = p[p1];
-            return (p1 == p2) ? s + "-Todos" : s + "-" + p[p2];
+        if (jugador1 < 4 && jugador2 < 4 && !(jugador1 + jugador2 == 6)) {
+            return getPunto();
         } else {
-            if (p1 == p2)
-                return "Deuce";
-            s = p1 > p2 ? p1N : p2N;
-            return ((p1-p2)*(p1-p2) == 1) ? "Ventaja " + s : "Gana " + s;
+            return getVentaja();
         }
     }
-    
+
+    private String getPunto() {
+        String s;
+        String[] p = new String[]{"Amor", "Quince", "Treinta", "Cuarenta"};
+        s = p[jugador1];
+        return (jugador1 == jugador2) ? s + "-Todos" : s + "-" + p[jugador2];
+    }
+
+    private String getVentaja() {
+        String s;
+        if (jugador1 == jugador2)
+            return "Deuce";
+        return getGanador();
+    }
+
+    private String getGanador() {
+        String s;
+        s = jugador1 > jugador2 ? nombreJugado1 : nombreJugador2;
+        return ((jugador1 - jugador2)*(jugador1 - jugador2) == 1) ? "Ventaja " + s : "Gana " + s;
+    }
+
     public void ganoPunto(String nombreJugador) {
         if (nombreJugador == "jugador1")
-            this.p1 += 1;
+            this.jugador1 += 1;
         else
-            this.p2 += 1;
+            this.jugador2 += 1;
         
     }
 
 }
+
+
