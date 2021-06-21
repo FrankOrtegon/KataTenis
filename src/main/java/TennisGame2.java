@@ -1,8 +1,9 @@
+import java.util.Hashtable;
 
 public class TennisGame2 implements TennisGame
 {
-    public int P1puntos = 0;
-    public int P2puntos = 0;
+    public int puntajeJugador1 = 0;
+    public int puntajeJugador2 = 0;
     
     public String P1res = "";
     public String P2res = "";
@@ -16,90 +17,136 @@ public class TennisGame2 implements TennisGame
 
     public String getPuntaje(){
         String score = "";
-        if (P1puntos == P2puntos && P1puntos < 4)
-        {
-            if (P1puntos ==0)
-                score = "Amor";
-            if (P1puntos ==1)
-                score = "Quince";
-            if (P1puntos ==2)
-                score = "Treinta";
-            score += "-Todos";
-        }
-        if (P1puntos == P2puntos && P1puntos >=3)
+        score = getPuntajeJugador1(score);
+        score = getDeuce(score);
+        score = getVentaja(score);
+        score = getPuntosJugador2(score);
+        score = getpuntosJugador1(score);
+        score = getPuntajeJugador2(score);
+        score = getVentajaJugador1(score);
+        score = getVentajaJugador2(score);
+        score = getGanaJugador1(score);
+        score = getGanaJugador2(score);
+        return score;
+    }
+
+    private String getDeuce(String score) {
+        if (puntajeJugador1 == puntajeJugador2 && puntajeJugador1 >=3)
             score = "Deuce";
-        
-        if (P1puntos > 0 && P2puntos ==0)
-        {
-            if (P1puntos ==1)
-                P1res = "Quince";
-            if (P1puntos ==2)
-                P1res = "Treinta";
-            if (P1puntos ==3)
-                P1res = "Cuarenta";
-            
-            P2res = "Amor";
-            score = P1res + "-" + P2res;
-        }
-        if (P2puntos > 0 && P1puntos ==0)
-        {
-            if (P2puntos ==1)
-                P2res = "Quince";
-            if (P2puntos ==2)
-                P2res = "Treinta";
-            if (P2puntos ==3)
-                P2res = "Cuarenta";
-            
-            P1res = "Amor";
-            score = P1res + "-" + P2res;
-        }
-        
-        if (P1puntos > P2puntos && P1puntos < 4)
-        {
-            if (P1puntos ==2)
-                P1res="Treinta";
-            if (P1puntos ==3)
-                P1res="Cuarenta";
-            if (P2puntos ==1)
-                P2res="Quince";
-            if (P2puntos ==2)
-                P2res="Treinta";
-            score = P1res + "-" + P2res;
-        }
-        if (P2puntos > P1puntos && P2puntos < 4)
-        {
-            if (P2puntos ==2)
-                P2res="Treinta";
-            if (P2puntos ==3)
-                P2res="Cuarenta";
-            if (P1puntos ==1)
-                P1res="Quince";
-            if (P1puntos ==2)
-                P1res="Treinta";
-            score = P1res + "-" + P2res;
-        }
-        
-        if (P1puntos > P2puntos && P2puntos >= 3)
-        {
-            score = "Ventaja jugador1";
-        }
-        
-        if (P2puntos > P1puntos && P1puntos >= 3)
-        {
-            score = "Ventaja jugador2";
-        }
-        
-        if (P1puntos >=4 && P2puntos >=0 && (P1puntos - P2puntos)>=2)
-        {
-            score = "Gana jugador1";
-        }
-        if (P2puntos >=4 && P1puntos >=0 && (P2puntos - P1puntos)>=2)
+        return score;
+    }
+
+    private String getGanaJugador2(String score) {
+        if (puntajeJugador2 >=4 && puntajeJugador1 >=0 && (puntajeJugador2 - puntajeJugador1)>=2)
         {
             score = "Gana jugador2";
         }
         return score;
     }
-    
+
+    private String getGanaJugador1(String score) {
+        if (puntajeJugador1 >=4 && puntajeJugador2 >=0 && (puntajeJugador1 - puntajeJugador2)>=2)
+        {
+            score = "Gana jugador1";
+        }
+        return score;
+    }
+
+    private String getVentajaJugador2(String score) {
+        if (puntajeJugador2 > puntajeJugador1 && puntajeJugador1 >= 3)
+        {
+            score = "Ventaja jugador2";
+        }
+        return score;
+    }
+
+    private String getVentajaJugador1(String score) {
+        if (puntajeJugador1 > puntajeJugador2 && puntajeJugador2 >= 3)
+        {
+            score = "Ventaja jugador1";
+        }
+        return score;
+    }
+
+    private String getPuntajeJugador2(String score) {
+        if (puntajeJugador2 > puntajeJugador1 && puntajeJugador2 < 4)
+        {
+
+            if (puntajeJugador2 ==2)
+                P2res="Treinta";
+            if (puntajeJugador2 ==3)
+                P2res="Cuarenta";
+            if (puntajeJugador1 ==1)
+                P1res="Quince";
+            if (puntajeJugador1 ==2)
+                P1res="Treinta";
+            score = P1res + "-" + P2res;
+        }
+        return score;
+    }
+
+    private String getpuntosJugador1(String score) {
+        if (puntajeJugador1 > puntajeJugador2 && puntajeJugador1 < 4)
+        {
+            if (puntajeJugador1 ==2)
+                P1res="Treinta";
+            if (puntajeJugador1 ==3)
+                P1res="Cuarenta";
+            if (puntajeJugador2 ==1)
+                P2res="Quince";
+            if (puntajeJugador2 ==2)
+                P2res="Treinta";
+            score = P1res + "-" + P2res;
+        }
+        return score;
+    }
+
+    private String getPuntosJugador2(String score) {
+        if (puntajeJugador2 > 0 && puntajeJugador1 ==0)
+        {
+            if (puntajeJugador2 ==1)
+                P2res = "Quince";
+            if (puntajeJugador2 ==2)
+                P2res = "Treinta";
+            if (puntajeJugador2 ==3)
+                P2res = "Cuarenta";
+            
+            P1res = "Amor";
+            score = P1res + "-" + P2res;
+        }
+        return score;
+    }
+
+    private String getVentaja(String score) {
+        if (puntajeJugador1 > 0 && puntajeJugador2 ==0)
+        {
+            if (puntajeJugador1 ==1)
+                P1res = "Quince";
+            if (puntajeJugador1 ==2)
+                P1res = "Treinta";
+            if (puntajeJugador1 ==3)
+                P1res = "Cuarenta";
+            
+            P2res = "Amor";
+            score = P1res + "-" + P2res;
+        }
+        return score;
+    }
+
+    private String getPuntajeJugador1(String score) {
+        if (puntajeJugador1 == puntajeJugador2 && puntajeJugador1 < 4)
+        {
+            if (puntajeJugador1 ==0)
+                score = "Amor";
+            if (puntajeJugador1 ==1)
+                score = "Quince";
+            if (puntajeJugador1 ==2)
+                score = "Treinta";
+            score += "-Todos";
+        }
+        return score;
+    }
+
     public void SetP1Punto(int number){
         
         for (int i = 0; i < number; i++)
@@ -119,11 +166,11 @@ public class TennisGame2 implements TennisGame
     }
     
     public void P1Puntaje(){
-        P1puntos++;
+        puntajeJugador1++;
     }
     
     public void P2Puntaje(){
-        P2puntos++;
+        puntajeJugador2++;
     }
 
     public void ganoPunto(String nombreJugador) {
